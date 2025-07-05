@@ -34,7 +34,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newUser = await User.create({ username, email, password });
+    const newUser = await User.create({ 
+      username, 
+      email, 
+      password, 
+      profilePicture: "" 
+    });
     
     return NextResponse.json(
       { message: "User registered successfully!" },

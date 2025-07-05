@@ -2,7 +2,7 @@
 
 import { upload } from "@imagekit/next";
 import { useState, useRef, useCallback } from "react";
-import { Upload, Video, Image, AlertCircle, CheckCircle } from "lucide-react";
+import {Video, Image, AlertCircle, CheckCircle } from "lucide-react";
 
 interface FileUploadProps {
   onSuccess: (res: any) => void;
