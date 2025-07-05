@@ -3,11 +3,12 @@
 import React from "react";
 import { ImageKitProvider } from "imagekitio-next";
 import { SessionProvider } from "next-auth/react";
+import { NotificationProvider } from "./notification";
 
 const urlEndpoints = process.env.NEXT_PUBLIC_URL_ENDPOINT!;
 const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY!;
 
-export const Provides = ({ children }: { children: React.ReactNode }) => {
+export const Providers = ({ children }: { children: React.ReactNode }) => {
   const authenticator = async () => {
     try {
       const response = await fetch("/api/imagekit-auth");
@@ -28,14 +29,16 @@ export const Provides = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <SessionProvider>
-      <ImageKitProvider
-        urlEndpoint={urlEndpoints}
-        publicKey={publicKey}
-        authenticator={authenticator}
-      >
-        {children}
-      </ImageKitProvider>
+    <SessionProvider refetchInterval={5 * 60}>
+      <NotificationProvider>
+        <ImageKitProvider
+          publicKey={publicKey}
+          urlEndpoint={urlEndpoints}
+          authenticator={authenticator}
+        >
+          {children}
+        </ImageKitProvider>
+      </NotificationProvider>
     </SessionProvider>
   );
 };

@@ -42,7 +42,7 @@ const VideoSchema = new Schema<IVideo>(
       required: true,
     },
     controls: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     transformation: {
