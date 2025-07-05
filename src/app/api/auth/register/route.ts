@@ -5,32 +5,45 @@ import User from "@/models/User";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
-    if (!email || !password) {
+    const { username, email, password } = await req.json();
+    
+    if (!username || !email || !password) {
       return NextResponse.json(
-        { error: "Email and password are required!" },
+        { error: "Username, email and password are required!" },
         { status: 400 }
       );
     }
 
     await connectDB();
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    
+    // Check for existing user by email
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
       return NextResponse.json(
-        { error: "This email already exist." },
+        { error: "This email already exists." },
+        { status: 400 }
+      );
+    }
+    
+    // Check for existing user by username
+    const existingUserByUsername = await User.findOne({ username });
+    if (existingUserByUsername) {
+      return NextResponse.json(
+        { error: "This username already exists." },
         { status: 400 }
       );
     }
 
-    const newUser = await User.create({ email, password });
+    const newUser = await User.create({ username, email, password });
+    
     return NextResponse.json(
-      { message: "User register successfullly!" },
+      { message: "User registered successfully!" },
       { status: 201 }
     );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { error: "Fail to register User" },
+      { error: "Failed to register user" },
       { status: 500 }
     );
   }
