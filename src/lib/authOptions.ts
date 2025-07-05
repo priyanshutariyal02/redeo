@@ -34,24 +34,47 @@ export const authOptions: NextAuthOptions = {
           return {
             id: user._id.toString(),
             email: user.email,
+            username: user.username,
+            profilePicture: user.profilePicture,
           };
         } catch (error) {
-          console.log(error);
           throw new Error("User not authenticate successfully!");
         }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
+        token.username = user.username;
+        token.profilePicture = user.profilePicture;
       }
+      
+      // Handle session updates (like profile picture changes)
+      if (trigger === "update" && session) {
+        if (session.profilePicture) {
+          token.profilePicture = session.profilePicture;
+        }
+        // Fetch latest user data from database
+        try {
+          await connectDB();
+          const updatedUser = await User.findById(token.id);
+          if (updatedUser) {
+            token.profilePicture = updatedUser.profilePicture;
+          }
+        } catch (error) {
+          console.error("Error fetching updated user data:", error);
+        }
+      }
+      
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        session.user.username = token.username as string;
+        session.user.profilePicture = token.profilePicture as string;
       }
       return session;
     },
@@ -64,5 +87,6 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET
+  debug: process.env.NODE_ENV === "development",
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret"
 };

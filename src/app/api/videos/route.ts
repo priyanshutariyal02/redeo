@@ -1,14 +1,16 @@
 import { authOptions } from "@/lib/authOptions";
 import { connectDB } from "@/lib/db";
 import Video, { IVideo } from "@/models/Video";
-import { error } from "console";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectDB();
-    const videos = await Video.find({}).sort({ createdAt: -1 }).lean();
+    const videos = await Video.find({})
+      .populate("user", "username email")
+      .sort({ createdAt: -1 })
+      .lean();
 
     if (!videos || videos.length === 0) {
       return NextResponse.json([], { status: 200 });
@@ -47,6 +49,7 @@ export async function POST(req: NextRequest) {
 
     const videoData = {
       ...body,
+      user: session.user.id,
       controls: body.controls ?? true,
       transformation: {
         height: 1920,

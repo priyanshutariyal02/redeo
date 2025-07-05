@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { title } from "process";
+
 
 export const VIDEO_DIMENTIONS = {
   width: 1080,
@@ -18,6 +18,7 @@ export interface IVideo {
     width: number;
     quality?: number;
   };
+  user?: string | { username: string; email: string; _id: string };
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -55,6 +56,10 @@ const VideoSchema = new Schema<IVideo>(
         default: VIDEO_DIMENTIONS.width,
       },
       quality: { type: Number, min: 1, max: 100 },
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
