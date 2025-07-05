@@ -64,7 +64,7 @@ export default function ProfilePage() {
                 <div className="space-y-6">
                   {/* Username */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <label className=" text-sm font-medium text-gray-700 flex items-center gap-2">
                       <User className="w-4 h-4" />
                       Username
                     </label>
@@ -77,7 +77,7 @@ export default function ProfilePage() {
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <label className=" text-sm font-medium text-gray-700 flex items-center gap-2">
                       <Mail className="w-4 h-4" />
                       Email Address
                     </label>
