@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
+import { upload } from "@imagekit/next";
 import { Loader2, CheckCircle } from "lucide-react";
 import { useNotification } from "./notification";
 import { useSession } from "next-auth/react";
@@ -19,8 +19,8 @@ export default function ProfilePictureUpload({ onUpdate, className = "" }: Profi
   const [error, setError] = useState<string | null>(null);
   const { showNotification } = useNotification();
 
-  const handleUploadSuccess = async (response: IKUploadResponse) => {
-    console.log("Profile picture upload response:", response);
+  const handleUploadSuccess = async (response: Awaited<ReturnType<typeof upload>>) => {
+
     setLoading(true);
     setError(null);
     
@@ -31,11 +31,11 @@ export default function ProfilePictureUpload({ onUpdate, className = "" }: Profi
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          profilePicture: response.url,
+          profilePicture: response.url || "",
         }),
       });
 
-      console.log("Profile picture update response status:", res.status);
+
 
       if (!res.ok) {
         const errorData = await res.json();
@@ -43,16 +43,15 @@ export default function ProfilePictureUpload({ onUpdate, className = "" }: Profi
         throw new Error(errorData.error || "Failed to update profile picture");
       }
 
-      const result = await res.json();
-      console.log("Profile picture update result:", result);
-
+      const profilePictureUrl = response.url || "";
+      
       // Update the session properly
       await update({
-        profilePicture: response.url,
+        profilePicture: profilePictureUrl,
       });
 
       showNotification("Profile picture updated successfully!", "success");
-      onUpdate?.(response.url);
+      onUpdate?.(profilePictureUrl);
       
       // Force a page refresh to ensure the session is updated everywhere
       setTimeout(() => {
@@ -71,7 +70,6 @@ export default function ProfilePictureUpload({ onUpdate, className = "" }: Profi
   };
 
   const handleUploadProgress = (progress: number) => {
-    console.log("Upload progress:", progress);
     setUploadProgress(progress);
   };
 

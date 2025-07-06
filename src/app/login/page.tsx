@@ -23,8 +23,6 @@ export default function Login() {
     setError(null); // Clear previous errors
 
     try {
-      console.log("Attempting to sign in with email:", email);
-
       const result = await signIn("credentials", {
         email,
         password,

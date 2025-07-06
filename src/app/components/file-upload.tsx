@@ -85,7 +85,6 @@ const FileUpload = ({
         },
       });
 
-      console.log("Upload successful:", res);
       onSuccess(res);
     } catch (error) {
       console.error("Upload failed:", error);
