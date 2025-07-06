@@ -1,11 +1,16 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { connectDB } from "./db";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -45,6 +50,68 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google") {
+        try {
+          await connectDB();
+
+          // Check if user already exists
+          const existingUser = await User.findOne({ email: user.email });
+
+          if (!existingUser) {
+            // Generate a unique username
+            let username = user.name || user.email?.split("@")[0] || "user";
+            let counter = 1;
+            let finalUsername = username;
+            
+            // Check if username exists and generate a unique one
+            while (await User.findOne({ username: finalUsername })) {
+              finalUsername = `${username}${counter}`;
+              counter++;
+            }
+            
+            // Create new user from Google OAuth
+            const newUser = await User.create({
+              email: user.email,
+              username: finalUsername,
+              profilePicture: user.image || "",
+              // Google OAuth users don't have passwords
+            });
+
+            user.id = newUser._id.toString();
+            user.username = newUser.username;
+            user.profilePicture = newUser.profilePicture;
+          } else {
+            // Update existing user's Google info
+            user.id = existingUser._id.toString();
+            user.username = existingUser.username;
+            user.profilePicture =
+              existingUser.profilePicture || user.image || "";
+          }
+        } catch (error) {
+          console.error("Error during Google sign in:", error);
+          
+          // Handle duplicate key errors specifically
+          if (error && typeof error === 'object' && 'code' in error && error.code === 11000) {
+            try {
+              // Try to find the user by email instead
+              const existingUserByEmail = await User.findOne({ email: user.email });
+              if (existingUserByEmail) {
+                user.id = existingUserByEmail._id.toString();
+                user.username = existingUserByEmail.username;
+                user.profilePicture = existingUserByEmail.profilePicture || user.image || "";
+                return true;
+              }
+            } catch (findError) {
+              console.error("Error finding existing user:", findError);
+            }
+          }
+          
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
@@ -88,6 +155,5 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
-  debug: process.env.NODE_ENV === "development",
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret",
+  secret: process.env.NEXTAUTH_SECRET,
 };

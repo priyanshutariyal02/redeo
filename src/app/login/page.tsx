@@ -23,8 +23,6 @@ export default function Login() {
     setError(null); // Clear previous errors
 
     try {
-      console.log("Attempting to sign in with email:", email);
-
       const result = await signIn("credentials", {
         email,
         password,
@@ -220,17 +218,53 @@ export default function Login() {
 
           {/* Social Login */}
           <div className="space-y-3">
-            <button className="w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base">
-              <BsGoogle className="text-lg" />
-              <span className="font-medium text-gray-700">
-                Continue with Google
-              </span>
-            </button>
-            <button className="w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base">
-              <BsFacebook className="text-lg" />
-              <span className="font-medium text-gray-700">
-                Continue with Facebook
-              </span>
+            <button
+              onClick={async () => {
+                try {
+                  setLoading(true);
+                  const result = await signIn("google", { 
+                    callbackUrl: "/",
+                    redirect: false 
+                  });
+                  
+                  if (result?.error) {
+                    console.error("Google sign in error:", result.error);
+                    setError("Google authentication failed. Please try again.");
+                    showNotification("Google authentication failed. Please try again.", "error");
+                  } else if (result?.ok) {
+                    showNotification("Google authentication successful!", "success");
+                    router.push("/");
+                  }
+                } catch (error) {
+                  console.error("Google sign in exception:", error);
+                  setError("An error occurred during Google authentication.");
+                  showNotification("An error occurred during Google authentication.", "error");
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              disabled={loading}
+              className={`w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base ${
+                loading
+                  ? "bg-gray-100 cursor-not-allowed"
+                  : "hover:bg-gray-50"
+              }`}
+            >
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+                  <span className="font-medium text-gray-500">
+                    Connecting to Google...
+                  </span>
+                </>
+              ) : (
+                <>
+                  <BsGoogle className="text-lg" />
+                  <span className="font-medium text-gray-700">
+                    Continue with Google
+                  </span>
+                </>
+              )}
             </button>
           </div>
         </div>
