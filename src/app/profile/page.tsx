@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import ProfilePictureUpload from "../components/profile-picture-upload";
 import { User, Mail, Settings, Camera } from "lucide-react";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -121,12 +122,12 @@ export default function ProfilePage() {
                 {/* Action Buttons */}
                 <div className="mt-8 pt-6 border-t border-gray-200">
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 font-medium">
+                    <Link
+                      href={"/"}
+                      className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 font-medium"
+                    >
                       Save Changes
-                    </button>
-                    <button className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-medium">
-                      Cancel
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
