@@ -75,12 +75,6 @@ export default function ProfilePictureUpload({ onUpdate, className = "" }: Profi
     setUploadProgress(progress);
   };
 
-  const handleUploadError = (error: string) => {
-    console.error("Upload error:", error);
-    setError(error);
-    showNotification(error, "error");
-  };
-
   const currentProfilePicture = session?.user?.profilePicture;
 
   return (

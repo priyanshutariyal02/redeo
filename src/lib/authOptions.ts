@@ -38,6 +38,7 @@ export const authOptions: NextAuthOptions = {
             profilePicture: user.profilePicture,
           };
         } catch (error) {
+          console.error("Error during authentication:", error);
           throw new Error("User not authenticate successfully!");
         }
       },
@@ -50,7 +51,7 @@ export const authOptions: NextAuthOptions = {
         token.username = user.username;
         token.profilePicture = user.profilePicture;
       }
-      
+
       // Handle session updates (like profile picture changes)
       if (trigger === "update" && session) {
         if (session.profilePicture) {
@@ -67,7 +68,7 @@ export const authOptions: NextAuthOptions = {
           console.error("Error fetching updated user data:", error);
         }
       }
-      
+
       return token;
     },
     async session({ session, token }) {
@@ -88,5 +89,5 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60,
   },
   debug: process.env.NODE_ENV === "development",
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret"
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret",
 };
