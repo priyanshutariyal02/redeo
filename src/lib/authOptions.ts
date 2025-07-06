@@ -37,8 +37,8 @@ export const authOptions: NextAuthOptions = {
             username: user.username,
             profilePicture: user.profilePicture,
           };
-        } catch (error) {
-          console.error("Error during authentication:", error);
+        } catch {
+          console.error("Error during authentication");
           throw new Error("User not authenticate successfully!");
         }
       },

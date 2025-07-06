@@ -5,7 +5,7 @@ import { useState, useRef, useCallback } from "react";
 import { Video, Image, AlertCircle, CheckCircle } from "lucide-react";
 
 interface FileUploadProps {
-  onSuccess: (res: any) => void;
+  onSuccess: (res: Awaited<ReturnType<typeof upload>>) => void;
   onProgress?: (progress: number) => void;
   fileType?: "image" | "video";
 }

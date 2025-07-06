@@ -77,9 +77,9 @@ export default function VideoComponent({ video }: { video: IVideo }) {
           <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center overflow-hidden">
             {typeof video.user === "object" &&
             video.user !== null &&
-            (video.user as any).profilePicture ? (
+            (video.user as { profilePicture?: string }).profilePicture ? (
               <img
-                src={(video.user as any).profilePicture}
+                src={(video.user as { profilePicture?: string }).profilePicture}
                 alt="Creator"
                 className="w-full h-full object-cover"
               />
