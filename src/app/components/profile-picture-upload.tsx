@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
-import { Camera, Loader2, X, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle } from "lucide-react";
 import { useNotification } from "./notification";
 import { useSession } from "next-auth/react";
 import FileUpload from "./file-upload";

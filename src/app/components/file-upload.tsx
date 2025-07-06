@@ -2,7 +2,7 @@
 
 import { upload } from "@imagekit/next";
 import { useState, useRef, useCallback } from "react";
-import {Video, Image, AlertCircle, CheckCircle } from "lucide-react";
+import { Video, Image, AlertCircle, CheckCircle } from "lucide-react";
 
 interface FileUploadProps {
   onSuccess: (res: any) => void;
@@ -16,13 +16,13 @@ const FileUpload = ({
   fileType = "video",
 }: FileUploadProps) => {
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string>("");
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateFile = (file: File): boolean => {
-    setError(null);
+    setError("");
 
     if (fileType === "video") {
       if (!file.type.startsWith("video/")) {
@@ -48,7 +48,7 @@ const FileUpload = ({
     if (!validateFile(file)) return;
 
     setUploading(true);
-    setError(null);
+    setError("");
     setSelectedFile(file);
 
     try {

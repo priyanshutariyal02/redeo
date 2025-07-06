@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import VideoFeed from "./components/video-feed";
 import { IVideo } from "@/models/Video";
 import { apiClient } from "@/lib/api-client";
-import { Play, TrendingUp, Users, Sparkles } from "lucide-react";
+import { Play,TrendingUp, Users, Sparkles } from "lucide-react";
 
 export default function Home() {
   const [videos, setVideos] = useState<IVideo[]>([]);
