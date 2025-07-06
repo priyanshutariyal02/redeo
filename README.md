@@ -1,6 +1,6 @@
-# Redeo - Video Sharing Platform
+# Reel Pro - Video Sharing Platform
 
-A modern, full-stack video sharing platform built with Next.js, featuring user authentication, video uploads, and a beautiful responsive interface. Redeo allows users to discover, upload, and share videos in a TikTok-like experience.
+A modern, full-stack video sharing platform built with Next.js, featuring user authentication, video uploads, and a beautiful responsive interface. Reel Pro allows users to discover, upload, and share videos in a TikTok-like experience.
 
 ## Features
 
@@ -10,7 +10,7 @@ A modern, full-stack video sharing platform built with Next.js, featuring user a
 - **Video Feed**: Browse and watch videos from the community
 - **User Authentication**: Secure login and registration system
 - **Responsive Design**: Beautiful UI that works on all devices
-- **Real-time Notifications**: User-friendly feedback for all actions
+
 
 ### Authentication & Security
 
@@ -19,102 +19,78 @@ A modern, full-stack video sharing platform built with Next.js, featuring user a
 - **Protected Routes**: Secure access to user-specific features
 - **Session Management**: Persistent user sessions
 
-### 📱 User Experience
+### User Experience
 
 - **Modern UI/UX**: Clean, intuitive interface with Tailwind CSS
 - **Loading States**: Smooth loading animations and progress indicators
 - **Form Validation**: Real-time validation with helpful error messages
 - **Responsive Layout**: Optimized for desktop, tablet, and mobile
 
-### 🛠 Technical Features
+### Technical Features
 
-- **ImageKit Integration**: Cloud video storage and CDN
+- **ImageKit Integration**: Cloud video and image storage with CDN
 - **MongoDB Database**: Scalable data storage with Mongoose ODM
 - **TypeScript**: Full type safety throughout the application
 - **API Routes**: RESTful API endpoints for data management
 
 ## Tech Stack
 
-### Frontend
-
-- **Next.js 15** - React framework with App Router
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Utility-first CSS framework
-- **DaisyUI** - Component library
-- **Lucide React** - Icon library
-- **React Hook Form** - Form management
-
-### Backend
-
-- **Next.js API Routes** - Server-side API endpoints
-- **MongoDB** - NoSQL database
-- **Mongoose** - MongoDB object modeling
-- **NextAuth.js** - Authentication solution
-- **Bcryptjs** - Password hashing
-
-### External Services
-
-- **ImageKit** - Video storage and CDN
-- **Vercel** - Deployment platform (recommended)
+**Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, DaisyUI, Lucide React, React Hook Form  
+**Backend:** Next.js API Routes, MongoDB, Mongoose, NextAuth.js, Bcryptjs  
+**External Services:** ImageKit (video/image storage), Vercel (deployment)
 
 ## Prerequisites
 
-Before running this project, make sure you have:
-
 - **Node.js** (v18 or higher)
-- **npm** or **yarn** package manager
+- **npm** or **yarn**
 - **MongoDB** database (local or cloud)
-- **ImageKit** account for video storage
+- **ImageKit** account
 
-## 🛠 Installation & Setup
+## Installation & Setup
 
-### 1. Clone the Repository
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/reel-pro.git
+   cd reel-pro
+   ```
 
-```bash
-git clone https://github.com/yourusername/reel-pro.git
-cd reel-pro
-```
+2. **Install Dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-### 2. Install Dependencies
+3. **Environment Variables**
 
-```bash
-npm install
-# or
-yarn install
-```
+   Create a `.env.local` file in the root directory:
 
-### 3. Environment Variables
+   ```env
+   # Database
+   MONGODB_URI=your_mongodb_connection_string
 
-Create a `.env.local` file in the root directory:
+   # NextAuth
+   NEXTAUTH_SECRET=your_nextauth_secret_key
+   NEXTAUTH_URL=http://localhost:3000
 
-```env
-# Database
-MONGODB_URI=your_mongodb_connection_string
+   # Google OAuth
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-# NextAuth
-NEXTAUTH_SECRET=your_nextauth_secret_key
-NEXTAUTH_URL=http://localhost:3000
+   # ImageKit (for uploads)
+   NEXT_PUBLIC_PUBLIC_KEY=your_imagekit_public_key
+   IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+   NEXT_PUBLIC_URL_ENDPOINT=your_imagekit_url_endpoint
+   ```
 
-# ImageKit (for video uploads)
-IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
-IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
-IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
-```
+4. **Run the Development Server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-### 4. Database Setup
-
-Make sure your MongoDB database is running and accessible. The application will automatically create the necessary collections when you first run it.
-
-### 5. Run the Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
@@ -133,38 +109,25 @@ reel-pro/
 │   ├── lib/                   # Utility libraries
 │   │   ├── api-client.ts      # API client functions
 │   │   ├── authOptions.ts     # NextAuth configuration
-│   │   └── db.ts             # Database connection
-│   └── models/               # MongoDB models
-│       ├── User.ts           # User model
-│       └── Video.ts          # Video model
-├── public/                   # Static assets
-└── package.json             # Dependencies and scripts
+│   │   └── db.ts              # Database connection
+│   └── models/                # MongoDB models
+│       ├── User.ts            # User model
+│       └── Video.ts           # Video model
+├── public/                    # Static assets
+└── package.json               # Dependencies and scripts
 ```
 
 ## Key Features Explained
 
-### Video Upload System
-
 - **File Upload**: Drag-and-drop video upload with progress tracking
-- **ImageKit Integration**: Automatic video processing and CDN delivery
+- **ImageKit Integration**: Video and image storage with CDN delivery
 - **Form Validation**: Real-time validation for title and description
-- **Thumbnail Generation**: Automatic thumbnail creation from uploaded videos
-
-### Authentication System
-
-- **User Registration**: Secure account creation with password hashing
-- **User Login**: JWT-based authentication with session management
-- **Protected Routes**: Secure access to user-specific features
+- **Profile Pictures**: Users can upload profile images
+- **User Registration & Login**: Secure account creation and authentication
 - **Session Persistence**: Automatic login state management
+- **Video Feed**: Browse and watch videos with creator info
 
-### Video Feed
-
-- **Infinite Scroll**: Smooth video browsing experience
-- **Video Player**: Custom video player with controls
-- **User Information**: Display creator details for each video
-- **Loading States**: Beautiful loading animations
-
-## 🔧 Available Scripts
+## Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
@@ -173,37 +136,16 @@ reel-pro/
 
 ## Deployment
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically on every push
-
-### Other Platforms
-
-The application can be deployed to any platform that supports Next.js:
-
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
+Deploy easily to Vercel or any platform that supports Next.js.
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- **Next.js** team for the amazing framework
-- **Vercel** for hosting and deployment
-- **ImageKit** for video storage solutions
-- **Tailwind CSS** for the beautiful styling system
+MIT

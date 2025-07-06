@@ -220,16 +220,13 @@ export default function Login() {
 
           {/* Social Login */}
           <div className="space-y-3">
-            <button className="w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base">
+            <button
+              onClick={() => signIn("google", { callbackUrl: "/" })}
+              className="w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base"
+            >
               <BsGoogle className="text-lg" />
               <span className="font-medium text-gray-700">
                 Continue with Google
-              </span>
-            </button>
-            <button className="w-full py-2.5 sm:py-3 px-6 border border-gray-300 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center gap-3 text-sm sm:text-base">
-              <BsFacebook className="text-lg" />
-              <span className="font-medium text-gray-700">
-                Continue with Facebook
               </span>
             </button>
           </div>
