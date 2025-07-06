@@ -51,33 +51,77 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
+      console.log("SignIn callback triggered:", { 
+        provider: account?.provider, 
+        userEmail: user.email,
+        hasAccount: !!account 
+      });
+      
       if (account?.provider === "google") {
         try {
+          console.log("Processing Google OAuth sign in...");
           await connectDB();
-          
+
           // Check if user already exists
           const existingUser = await User.findOne({ email: user.email });
-          
+          console.log("Existing user found:", !!existingUser);
+
           if (!existingUser) {
+            console.log("Creating new user from Google OAuth...");
+            
+            // Generate a unique username
+            let username = user.name || user.email?.split("@")[0] || "user";
+            let counter = 1;
+            let finalUsername = username;
+            
+            // Check if username exists and generate a unique one
+            while (await User.findOne({ username: finalUsername })) {
+              finalUsername = `${username}${counter}`;
+              counter++;
+            }
+            
             // Create new user from Google OAuth
             const newUser = await User.create({
               email: user.email,
-              username: user.name || user.email?.split('@')[0] || 'user',
-              profilePicture: user.image || '',
+              username: finalUsername,
+              profilePicture: user.image || "",
               // Google OAuth users don't have passwords
             });
-            
+
             user.id = newUser._id.toString();
             user.username = newUser.username;
             user.profilePicture = newUser.profilePicture;
+            console.log("New user created successfully:", user.id);
           } else {
+            console.log("Updating existing user...");
             // Update existing user's Google info
             user.id = existingUser._id.toString();
             user.username = existingUser.username;
-            user.profilePicture = existingUser.profilePicture || user.image || '';
+            user.profilePicture =
+              existingUser.profilePicture || user.image || "";
           }
-        } catch (error) {
+        } catch (error: any) {
           console.error("Error during Google sign in:", error);
+          console.error("Error details:", JSON.stringify(error, null, 2));
+          
+          // Handle duplicate key errors specifically
+          if (error.code === 11000) {
+            console.log("Duplicate key error detected, attempting to find existing user...");
+            try {
+              // Try to find the user by email instead
+              const existingUserByEmail = await User.findOne({ email: user.email });
+              if (existingUserByEmail) {
+                console.log("Found existing user by email, updating...");
+                user.id = existingUserByEmail._id.toString();
+                user.username = existingUserByEmail.username;
+                user.profilePicture = existingUserByEmail.profilePicture || user.image || "";
+                return true;
+              }
+            } catch (findError) {
+              console.error("Error finding existing user:", findError);
+            }
+          }
+          
           return false;
         }
       }
@@ -126,6 +170,6 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
-  debug: process.env.NODE_ENV === "development",
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret",
+  debug: true,
+  secret: process.env.NEXTAUTH_SECRET,
 };
