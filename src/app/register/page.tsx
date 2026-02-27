@@ -76,7 +76,7 @@ export default function Register() {
     } catch (error) {
       showNotification(
         error instanceof Error ? error.message : "Registration failed",
-        "error"
+        "error",
       );
     } finally {
       setLoading(false);
@@ -103,19 +103,14 @@ export default function Register() {
       <div className="w-full max-w-sm sm:max-w-md">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full mb-4 sm:mb-6">
-            <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-            Join Redeo
-          </h1>
-          <p className="text-gray-600 text-sm sm:text-base">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join Redeo</h1>
+          <p className="text-gray-600 text-base">
             Create your account and start sharing amazing content
           </p>
         </div>
 
         {/* Register Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-2xl shadow-2xl border border-white/20 p-6 sm:p-8">
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Name Input */}
             <div className="space-y-2">
@@ -136,7 +131,7 @@ export default function Register() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -161,7 +156,7 @@ export default function Register() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Enter your email"
                 />
               </div>
@@ -186,7 +181,7 @@ export default function Register() {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Create a strong password"
                 />
                 <button
@@ -238,7 +233,7 @@ export default function Register() {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Confirm your password"
                 />
                 <button
@@ -265,7 +260,9 @@ export default function Register() {
                   ) : (
                     <>
                       <div className="w-3 h-3 border-2 border-red-300 rounded-full" />
-                      <span className="text-red-600">Passwords do not match</span>
+                      <span className="text-red-600">
+                        Passwords do not match
+                      </span>
                     </>
                   )}
                 </div>
@@ -276,10 +273,10 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2.5 sm:py-3 px-6 rounded-lg sm:rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base ${
+              className={`w-full py-3 px-6 rounded-lg font-semibold text-white transition-all duration-300 flex items-center justify-center gap-2 text-base ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transform shadow-lg hover:shadow-xl"
+                  : "bg-gray-900 hover:bg-black shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               }`}
             >
               {loading ? (
@@ -301,7 +298,7 @@ export default function Register() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-purple-600 hover:text-purple-700 font-semibold transition-colors duration-200"
+                  className="text-rose-600 hover:text-rose-700 font-semibold transition-colors duration-200"
                 >
                   Sign in here
                 </Link>

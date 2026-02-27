@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 
 import User from "@/models/User";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest) {
     if (!username || !email || !password) {
       return NextResponse.json(
         { error: "Username, email and password are required!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     if (existingUserByEmail) {
       return NextResponse.json(
         { error: "This email already exists." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -30,27 +31,27 @@ export async function POST(req: NextRequest) {
     if (existingUserByUsername) {
       return NextResponse.json(
         { error: "This username already exists." },
-        { status: 400 }
+        { status: 400 },
       );
     }
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       username,
       email,
-      password,
+      password: hashedPassword,
       profilePicture: "",
     });
 
     if (newUser) {
       return NextResponse.json(
         { message: "User registered successfully!" },
-        { status: 201 }
+        { status: 201 },
       );
     }
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to register user" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
