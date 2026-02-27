@@ -27,7 +27,7 @@ export default function ProfilePage() {
         <div className="max-w-4xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-10 sm:mb-14">
-            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gray-900 text-white mb-6">
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-gray-900 text-white mb-6">
               <Settings className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
 
@@ -42,7 +42,7 @@ export default function ProfilePage() {
           </div>
 
           {/* Main Card */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-10 transition-all duration-300">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-10 transition-all duration-300">
             {/* Section Title */}
             <div className="flex items-center gap-3 mb-8">
               <div className="w-1.5 h-8 bg-gray-900 rounded-full"></div>
@@ -73,7 +73,7 @@ export default function ProfilePage() {
                     Username
                   </label>
 
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
                     <span className="text-gray-900 font-medium">
                       {session?.user?.username || "Not set"}
                     </span>
@@ -87,7 +87,7 @@ export default function ProfilePage() {
                     Email Address
                   </label>
 
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
                     <span className="text-gray-900">
                       {session?.user?.email}
                     </span>
@@ -100,7 +100,7 @@ export default function ProfilePage() {
                     Account Status
                   </label>
 
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3">
                     <span className="text-emerald-700 font-medium flex items-center gap-2">
                       <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                       Active
@@ -114,7 +114,7 @@ export default function ProfilePage() {
                     Member Since
                   </label>
 
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
                     <span className="text-gray-900">
                       {new Date().toLocaleDateString("en-US", {
                         year: "numeric",
@@ -129,7 +129,7 @@ export default function ProfilePage() {
                 <div className="pt-6 border-t border-gray-200">
                   <Link
                     href={"/"}
-                    className="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white rounded-xl hover:bg-black transition-all duration-200 font-medium"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black transition-all duration-200 font-medium"
                   >
                     Save Changes
                   </Link>
@@ -141,8 +141,8 @@ export default function ProfilePage() {
           {/* Additional Settings */}
           <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Card 1 */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-all duration-200">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-all duration-200">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <User className="w-6 h-6 text-gray-700" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-center">
@@ -154,8 +154,8 @@ export default function ProfilePage() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-all duration-200">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-all duration-200">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Settings className="w-6 h-6 text-gray-700" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-center">
@@ -167,8 +167,8 @@ export default function ProfilePage() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-all duration-200">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-all duration-200">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Camera className="w-6 h-6 text-gray-700" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-center">

@@ -167,7 +167,7 @@ export default function VideoUploadForm() {
         </label>
 
         {uploadedVideo ? (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-emerald-600" />
               <span className="text-emerald-800 font-medium text-sm">
@@ -183,7 +183,7 @@ export default function VideoUploadForm() {
             </button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center transition">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition">
             <FileUpload
               fileType="video"
               onSuccess={handleUploadSuccess}

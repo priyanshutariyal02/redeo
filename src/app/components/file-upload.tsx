@@ -178,7 +178,7 @@ const FileUpload = ({
   return (
     <div className="w-full">
       <div
-        className={`relative border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-300 bg-white ${
+        className={`relative border-2 border-dashed rounded-lg p-10 text-center transition-all duration-300 bg-white ${
           dragActive
             ? "border-gray-900 bg-gray-50"
             : "border-gray-300 hover:border-gray-400"
@@ -200,7 +200,7 @@ const FileUpload = ({
           {/* Icon */}
           <div className="flex justify-center">
             <div
-              className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${
+              className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all ${
                 dragActive
                   ? "bg-gray-900 text-white"
                   : "bg-gray-100 text-gray-700"
@@ -232,7 +232,7 @@ const FileUpload = ({
 
           {/* Error */}
           {error && (
-            <div className="flex items-center justify-center gap-2 text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+            <div className="flex items-center justify-center gap-2 text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">
               <AlertCircle className="w-4 h-4" />
               <span>{error}</span>
             </div>
@@ -240,7 +240,7 @@ const FileUpload = ({
 
           {/* Success */}
           {!uploading && !error && selectedFile && (
-            <div className="flex items-center justify-center gap-2 text-emerald-600 text-sm bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+            <div className="flex items-center justify-center gap-2 text-emerald-600 text-sm bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3">
               <CheckCircle className="w-4 h-4" />
               <span>File ready to upload</span>
             </div>

@@ -120,7 +120,7 @@ export default function ProfilePictureUpload({
       {/* Upload Area */}
       <div className="mt-6">
         {uploadProgress === 0 && !loading && (
-          <div className="relative border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center transition-all duration-300 bg-white hover:border-gray-400">
+          <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-6 text-center transition-all duration-300 bg-white hover:border-gray-400">
             <FileUpload
               fileType="image"
               onSuccess={handleUploadSuccess}
@@ -138,7 +138,7 @@ export default function ProfilePictureUpload({
 
       {/* Success Message */}
       {uploadProgress === 100 && !loading && !error && (
-        <div className="mt-6 bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-3">
+        <div className="mt-6 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3">
           <div className="flex items-center justify-center gap-2">
             <CheckCircle className="w-4 h-4 text-emerald-600" />
             <span className="text-emerald-700 text-sm font-medium">

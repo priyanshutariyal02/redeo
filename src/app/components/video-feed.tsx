@@ -46,7 +46,7 @@ export default function VideoFeed({ videos }: VideoFeedProps) {
 
       {/* Empty State */}
       {videos.length === 0 && (
-        <div className="text-center py-20 bg-white border rounded-2xl shadow-sm">
+        <div className="text-center py-20 bg-white border rounded-lg shadow-sm">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Play className="w-10 h-10 text-gray-400" />
           </div>

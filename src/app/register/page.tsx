@@ -110,7 +110,7 @@ export default function Register() {
         </div>
 
         {/* Register Form */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Name Input */}
             <div className="space-y-2">

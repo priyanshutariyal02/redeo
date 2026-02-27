@@ -128,7 +128,7 @@ export default function Header() {
                   </button>
 
                   {isDropdownOpen && (
-                    <div className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 p-2">
+                    <div className="absolute right-0 mt-3 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-2">
                       <Link
                         href="/profile"
                         className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
