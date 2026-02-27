@@ -115,7 +115,7 @@ export default function Register() {
         </div>
 
         {/* Register Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 p-6 sm:p-8">
+        <div className="bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-2xl shadow-2xl border border-white/20 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Name Input */}
             <div className="space-y-2">
@@ -136,7 +136,7 @@ export default function Register() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -161,7 +161,7 @@ export default function Register() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Enter your email"
                 />
               </div>
@@ -186,7 +186,7 @@ export default function Register() {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Create a strong password"
                 />
                 <button
@@ -238,7 +238,7 @@ export default function Register() {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full pl-9 sm:pl-10 pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-lg sm:rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                   placeholder="Confirm your password"
                 />
                 <button
@@ -276,7 +276,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2.5 sm:py-3 px-6 rounded-lg sm:rounded-xl font-semibold text-white transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base ${
+              className={`w-full py-2.5 sm:py-3 px-6 rounded-lg sm:rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transform shadow-lg hover:shadow-xl"

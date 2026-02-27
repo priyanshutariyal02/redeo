@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import VideoFeed from "./components/video-feed";
 import { IVideo } from "@/models/Video";
 import { apiClient } from "@/lib/api-client";
-import { Play,TrendingUp, Users, Sparkles } from "lucide-react";
+import { Play, TrendingUp, Users, Sparkles } from "lucide-react";
 
 export default function Home() {
   const [videos, setVideos] = useState<IVideo[]>([]);
@@ -26,95 +26,104 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen container mx-auto px-4 py-8">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
-              <span>Welcome to</span>
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-l from-purple-500 to-blue-500 backdrop-blur-sm rounded-full">
-                  <Play className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
-                </span>
-                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  Redeo
-                </span>
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Logo Badge */}
+            <div className="inline-flex items-center gap-3 px-4 py-2 bg-rose-50 border border-rose-100 rounded-full mb-8">
+              <div className="w-8 h-8 flex items-center justify-center bg-rose-500 rounded-full">
+                <Play className="w-4 h-4 text-white" />
               </div>
+              <span className="text-sm font-medium text-rose-600">
+                Welcome to Redeo
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-gray-900">
+              Discover. Create.
+              <span className="block bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
+                Share Your Story.
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl my-6 sm:my-8 max-w-2xl sm:max-w-3xl mx-auto px-4">
-              Discover amazing videos, share your stories, and connect with
-              creators from around the world
+
+            {/* Subtitle */}
+            <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+              Explore high-quality content, connect with creators worldwide, and
+              share your creativity with a global audience.
             </p>
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-white/80 text-sm sm:text-base">
+
+            {/* Feature Row */}
+            <div className="flex flex-wrap justify-center gap-8 mt-10 text-gray-600 text-sm md:text-base">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Trending Content</span>
+                <TrendingUp className="w-5 h-5 text-rose-500" />
+                Trending Content
               </div>
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Global Community</span>
+                <Users className="w-5 h-5 text-purple-500" />
+                Global Community
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>High Quality</span>
+                <Sparkles className="w-5 h-5 text-indigo-500" />
+                Premium Quality
               </div>
+            </div>
+
+            {/* CTA */}
+            <div className="mt-12">
+              <a
+                href="/upload"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gray-900 text-white rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <Sparkles className="w-5 h-5" />
+                Start Uploading
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Decorative Elements */}
-        <div className="absolute top-10 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-4 sm:right-10 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-white/5 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/4 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white/10 rounded-full blur-lg"></div>
+        {/* Background Glow Effects */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-100 rounded-full blur-3xl opacity-30"></div>
       </section>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="container mx-auto px-6 pb-24">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-left mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">
-              Video Feed
-            </h2>
-          </div>
-
           {/* Loading State */}
           {loading && (
-            <div className="flex justify-center items-center py-12 sm:py-16 md:py-20">
-              <div className="space-y-4 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                <p className="text-gray-600 text-sm sm:text-base">Loading amazing videos...</p>
+            <div className="flex justify-center py-20">
+              <div className="w-12 h-12 border-4 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!loading && videos.length === 0 && (
+            <div className="text-center py-20 bg-white rounded-2xl shadow-sm border">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Play className="w-10 h-10 text-gray-400" />
               </div>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                No videos yet
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Be the first to share your content with the world.
+              </p>
+              <a
+                href="/upload"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black transition"
+              >
+                Upload Video
+              </a>
             </div>
           )}
 
           {/* Video Feed */}
-          {!loading && (
-            <>
-              {videos.length === 0 ? (
-                <div className="text-center py-12 sm:py-16 md:py-20">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                    <Play className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-400" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">
-                    No videos yet
-                  </h3>
-                  <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base px-4">
-                    Be the first to share your amazing content!
-                  </p>
-                  <a
-                    href="/upload"
-                    className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 text-sm sm:text-base"
-                  >
-                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
-                    Upload Your First Video
-                  </a>
-                </div>
-              ) : (
-                <VideoFeed videos={videos} />
-              )}
-            </>
+          {!loading && videos.length > 0 && (
+            <div className="">
+              <VideoFeed videos={videos} />
+            </div>
           )}
         </div>
       </main>

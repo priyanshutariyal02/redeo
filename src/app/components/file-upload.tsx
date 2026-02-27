@@ -101,7 +101,7 @@ const FileUpload = ({
           error.message.includes("fetch")
         ) {
           setError(
-            "Network error. Please check your connection and try again."
+            "Network error. Please check your connection and try again.",
           );
         } else if (error.message.includes("Invalid server response")) {
           setError("Server error. Please try again later.");
@@ -178,11 +178,11 @@ const FileUpload = ({
   return (
     <div className="w-full">
       <div
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
+        className={`relative border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-300 bg-white ${
           dragActive
-            ? "border-purple-400 bg-purple-50"
+            ? "border-gray-900 bg-gray-50"
             : "border-gray-300 hover:border-gray-400"
-        } ${uploading ? "opacity-50 pointer-events-none" : ""}`}
+        } ${uploading ? "opacity-60 pointer-events-none" : ""}`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -196,57 +196,58 @@ const FileUpload = ({
           className="hidden"
         />
 
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Icon */}
           <div className="flex justify-center">
             <div
-              className={`w-16 h-16 rounded-full flex items-center justify-center ${
-                dragActive ? "bg-purple-100" : "bg-gray-100"
+              className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${
+                dragActive
+                  ? "bg-gray-900 text-white"
+                  : "bg-gray-100 text-gray-700"
               }`}
             >
               {uploading ? (
-                <div className="w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full animate-spin" />
+                <div className="w-6 h-6 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
               ) : (
-                <IconComponent
-                  className={`w-8 h-8 ${
-                    dragActive ? "text-purple-600" : "text-gray-600"
-                  }`}
-                />
+                <IconComponent className="w-8 h-8" />
               )}
             </div>
           </div>
 
+          {/* Text */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900">
               {uploadText.title}
             </h3>
-            <p className="text-gray-500">{uploadText.subtitle}</p>
+            <p className="text-sm text-gray-500">{uploadText.subtitle}</p>
+
             {selectedFile && (
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-                <span>{selectedFile.name}</span>
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
+                <span className="truncate max-w-xs">{selectedFile.name}</span>
                 <span className="text-gray-400">•</span>
                 <span>{formatFileSize(selectedFile.size)}</span>
               </div>
             )}
           </div>
 
-          {/* Error Display */}
+          {/* Error */}
           {error && (
-            <div className="flex items-center gap-2 text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg p-3">
+            <div className="flex items-center justify-center gap-2 text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">
               <AlertCircle className="w-4 h-4" />
               <span>{error}</span>
             </div>
           )}
 
-          {/* Success Display */}
+          {/* Success */}
           {!uploading && !error && selectedFile && (
-            <div className="flex items-center gap-2 text-green-600 text-sm bg-green-50 border border-green-200 rounded-lg p-3">
+            <div className="flex items-center justify-center gap-2 text-emerald-600 text-sm bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
               <CheckCircle className="w-4 h-4" />
-              <span>File selected: {selectedFile.name}</span>
+              <span>File ready to upload</span>
             </div>
           )}
         </div>
 
-        {/* Click to upload overlay */}
+        {/* Click overlay */}
         <div
           className="absolute inset-0 cursor-pointer"
           onClick={() => fileInputRef.current?.click()}

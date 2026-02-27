@@ -77,7 +77,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       {children}
       {notification && (
         <div className="fixed top-4 right-4 z-[100] animate-in slide-in-from-right-2 duration-300">
-          <div className={`max-w-sm w-full bg-white rounded-xl shadow-lg border ${getNotificationStyles(notification.type).bg} backdrop-blur-sm`}>
+          <div className={`max-w-sm w-full bg-white rounded-lg shadow-lg border ${getNotificationStyles(notification.type).bg} backdrop-blur-sm`}>
             <div className="p-4">
               <div className="flex items-start gap-3">
                 <div className={`flex-shrink-0 ${getNotificationStyles(notification.type).icon}`}>
