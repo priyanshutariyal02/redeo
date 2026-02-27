@@ -39,7 +39,9 @@ export default function VideoUploadForm() {
   const watchedTitle = watch("title");
   const watchedDescription = watch("description");
 
-  const handleUploadSuccess = (response: Awaited<ReturnType<typeof upload>>) => {
+  const handleUploadSuccess = (
+    response: Awaited<ReturnType<typeof upload>>,
+  ) => {
     setValue("videoUrl", response.filePath || "");
     setValue("thumbnailUrl", response.thumbnailUrl || response.filePath || "");
     setUploadedVideo(response.filePath || "");
@@ -73,7 +75,7 @@ export default function VideoUploadForm() {
     } catch (error) {
       showNotification(
         error instanceof Error ? error.message : "Failed to publish video",
-        "error"
+        "error",
       );
     } finally {
       setLoading(false);
@@ -81,21 +83,22 @@ export default function VideoUploadForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
-      {/* Title Input */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      {/* Title */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Video Title <span className="text-red-500">*</span>
+        <label className="block text-sm font-medium text-gray-900">
+          Video Title <span className="text-rose-500">*</span>
         </label>
+
         <div className="relative">
           <input
             type="text"
-            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg sm:rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg bg-white transition-all duration-200 focus:outline-none focus:ring-0.5 focus:ring-gray-900 focus:border-gray-900 text-sm ${
               errors.title
                 ? "border-red-300 bg-red-50"
                 : "border-gray-300 hover:border-gray-400"
             }`}
-            placeholder="Enter an engaging title for your video..."
+            placeholder="Enter a title (minimum 3 characters)..."
             {...register("title", {
               required: "Title is required",
               minLength: {
@@ -104,32 +107,35 @@ export default function VideoUploadForm() {
               },
             })}
           />
-          {watchedTitle && !errors.title && (
-            <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
+
+          {watchedTitle && !errors.title && watchedTitle.length > 2 && (
+            <CheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-emerald-500" />
           )}
         </div>
+
         {errors.title && (
-          <div className="flex items-center gap-2 text-red-500 text-xs sm:text-sm">
-            <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+          <div className="flex items-center gap-2 text-red-500 text-sm">
+            <AlertCircle className="w-4 h-4" />
             {errors.title.message}
           </div>
         )}
       </div>
 
-      {/* Description Input */}
+      {/* Description */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Description <span className="text-red-500">*</span>
+        <label className="block text-sm font-medium text-gray-900">
+          Description <span className="text-rose-500">*</span>
         </label>
+
         <div className="relative">
           <textarea
-            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg sm:rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm sm:text-base ${
+            rows={4}
+            className={`w-full px-4 py-3 border rounded-lg bg-white resize-none transition-all duration-200 focus:outline-none focus:ring-0.5 focus:ring-gray-900 focus:border-gray-900 text-sm ${
               errors.description
                 ? "border-red-300 bg-red-50"
                 : "border-gray-300 hover:border-gray-400"
             }`}
-            rows={4}
-            placeholder="Describe your video content, add hashtags, or share the story behind your creation..."
+            placeholder="Enter a description (minimum 10 characters)..."
             {...register("description", {
               required: "Description is required",
               minLength: {
@@ -138,44 +144,46 @@ export default function VideoUploadForm() {
               },
             })}
           />
-          {watchedDescription && !errors.description && (
-            <CheckCircle className="absolute right-3 top-3 w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-          )}
+
+          {watchedDescription &&
+            !errors.description &&
+            watchedDescription.length > 9 && (
+              <CheckCircle className="absolute right-3 top-3 w-5 h-5 text-emerald-500" />
+            )}
         </div>
+
         {errors.description && (
-          <div className="flex items-center gap-2 text-red-500 text-xs sm:text-sm">
-            <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+          <div className="flex items-center gap-2 text-red-500 text-sm">
+            <AlertCircle className="w-4 h-4" />
             {errors.description.message}
           </div>
         )}
       </div>
 
-      {/* Video Upload Section */}
-      <div className="space-y-3 sm:space-y-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Upload Video <span className="text-red-500">*</span>
+      {/* Video Upload */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-gray-900">
+          Upload Video <span className="text-rose-500">*</span>
         </label>
 
         {uploadedVideo ? (
-          <div className="bg-green-50 border border-green-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-                <span className="text-green-800 font-medium text-sm sm:text-base">
-                  Video uploaded successfully!
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={resetForm}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
+          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <CheckCircle className="w-5 h-5 text-emerald-600" />
+              <span className="text-emerald-800 font-medium text-sm">
+                Video uploaded successfully
+              </span>
             </div>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="text-gray-400 hover:text-gray-600 transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-300 rounded-lg sm:rounded-xl p-6 sm:p-8 text-center hover:border-purple-400 transition-colors">
+          <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center transition">
             <FileUpload
               fileType="video"
               onSuccess={handleUploadSuccess}
@@ -184,16 +192,16 @@ export default function VideoUploadForm() {
           </div>
         )}
 
-        {/* Upload Progress */}
+        {/* Progress */}
         {uploadProgress > 0 && uploadProgress < 100 && (
           <div className="space-y-2">
-            <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+            <div className="flex justify-between text-sm text-gray-600">
               <span>Uploading...</span>
               <span>{uploadProgress}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className="bg-gradient-to-r from-purple-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
+                className="bg-gray-900 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
@@ -201,25 +209,25 @@ export default function VideoUploadForm() {
         )}
       </div>
 
-      {/* Submit Button */}
-      <div className="pt-4 sm:pt-6">
+      {/* Submit */}
+      <div className="pt-4">
         <button
           type="submit"
           disabled={loading || !isValid}
-          className={`w-full py-3 sm:py-4 px-6 rounded-lg sm:rounded-xl font-semibold text-white transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base ${
+          className={`w-full py-3 px-6 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${
             loading || !isValid
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transform shadow-lg hover:shadow-xl hover:scale-[1.02]"
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-gray-900 text-white hover:bg-black shadow-sm hover:shadow-md"
           }`}
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
-              Publishing Video...
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Publishing...
             </>
           ) : (
             <>
-              <Upload className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Upload className="w-5 h-5" />
               Publish Video
             </>
           )}
